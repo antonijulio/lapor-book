@@ -7,6 +7,8 @@ class InputWidget extends StatelessWidget {
   final bool obscureText;
   final TextInputType? keyboardType;
   final TextEditingController controller;
+  final int? maxLines;
+  final int? minLines;
 
   const InputWidget({
     Key? key,
@@ -16,6 +18,8 @@ class InputWidget extends StatelessWidget {
     required this.controller,
     this.suffixIcon,
     this.obscureText = false,
+    this.maxLines,
+    this.minLines,
   }) : super(key: key);
 
   @override
@@ -41,6 +45,8 @@ class InputWidget extends StatelessWidget {
       ),
       obscureText: obscureText,
       keyboardType: keyboardType,
+      maxLines: maxLines,
+      minLines: minLines,
     );
   }
 }

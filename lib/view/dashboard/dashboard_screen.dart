@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lapor_book/components/styles.dart';
+import 'package:lapor_book/routes/routes_navigation.dart';
 
 import 'package:lapor_book/view/profile/profile_screen.dart';
 import 'package:lapor_book/view/my_laporan/my_laporan_screen.dart';
@@ -17,7 +18,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  List pages = [];
   @override
   void initState() {
     super.initState();
@@ -51,7 +51,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           floatingActionButton: FloatingActionButton(
             backgroundColor: primaryColor,
             child: const Icon(Icons.add, size: 35),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                RoutesNavigation.addLaporan,
+                arguments: controller.akunData,
+              );
+            },
           ),
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: primaryColor,
