@@ -1,5 +1,6 @@
 /// package
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:lapor_book/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,6 +14,7 @@ import 'package:lapor_book/view/dashboard/view_model/dashboard_view_model.dart';
 import 'package:lapor_book/view/my_laporan/view_model/my_laporan_view_model.dart';
 import 'package:lapor_book/view/add_laporan/view_model/add_laporan_view_model.dart';
 import 'package:lapor_book/view/all_laporan/view_model/all_laporan_view_model.dart';
+import 'package:lapor_book/view/detail_laporan/view_model/detail_laporan_view_model.dart';
 
 /// screen
 import 'package:lapor_book/view/login/login_screen.dart';
@@ -20,6 +22,7 @@ import 'package:lapor_book/view/splash/splash_screen.dart';
 import 'package:lapor_book/view/register/register_screen.dart';
 import 'package:lapor_book/view/dashboard/dashboard_screen.dart';
 import 'package:lapor_book/view/add_laporan/add_laporan_screen.dart';
+import 'package:lapor_book/view/detail_laporan/detail_laporan_screen.dart';
 
 /// constant -> routes navigation
 import 'package:lapor_book/routes/routes_navigation.dart';
@@ -29,7 +32,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MainApp());
+  await initializeDateFormatting('id_ID', null).then(
+    (value) => runApp(const MainApp()),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -47,6 +52,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DashboardViewModel()),
         ChangeNotifierProvider(create: (_) => AllLaporanViewModel()),
         ChangeNotifierProvider(create: (_) => AddLaporanViewModel()),
+        ChangeNotifierProvider(create: (_) => DetailLaporanViewModel()),
       ],
       child: MaterialApp(
         title: 'Lapor Book',
@@ -58,7 +64,7 @@ class MainApp extends StatelessWidget {
           RoutesNavigation.register: (_) => const RegisterScreen(),
           RoutesNavigation.dashboard: (_) => const DashboardScreen(),
           RoutesNavigation.addLaporan: (_) => const AddLaporanScreen(),
-          // detail laporan screen
+          RoutesNavigation.detailLaporan: (_) => const DetailLaporanScreen(),
         },
       ),
     );

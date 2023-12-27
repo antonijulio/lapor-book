@@ -18,8 +18,8 @@ class InputWidget extends StatelessWidget {
     required this.controller,
     this.suffixIcon,
     this.obscureText = false,
-    this.maxLines,
-    this.minLines,
+    this.maxLines = 1,
+    this.minLines = 1,
   }) : super(key: key);
 
   @override

@@ -7,4 +7,5 @@ class RoutesNavigation {
   static const myLaporan = '/my-laporan';
   static const profile = '/profile';
   static const addLaporan = '/add-laporan';
+  static const detailLaporan = '/detail-laporan';
 }
