@@ -1,6 +1,7 @@
 /// package
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:lapor_book/helper/laporan_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:lapor_book/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,9 +12,7 @@ import 'package:lapor_book/view/splash/view_model/splash_view_model.dart';
 import 'package:lapor_book/view/profile/view_model/profile_view_model.dart';
 import 'package:lapor_book/view/register/view_model/register_view_model.dart';
 import 'package:lapor_book/view/dashboard/view_model/dashboard_view_model.dart';
-import 'package:lapor_book/view/my_laporan/view_model/my_laporan_view_model.dart';
 import 'package:lapor_book/view/add_laporan/view_model/add_laporan_view_model.dart';
-import 'package:lapor_book/view/all_laporan/view_model/all_laporan_view_model.dart';
 import 'package:lapor_book/view/detail_laporan/view_model/detail_laporan_view_model.dart';
 
 /// screen
@@ -47,10 +46,9 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => LoginViewModel()),
         ChangeNotifierProvider(create: (_) => SplashViewModel()),
         ChangeNotifierProvider(create: (_) => ProfileViewModel()),
+        ChangeNotifierProvider(create: (_) => LaporanViewModel()),
         ChangeNotifierProvider(create: (_) => RegisterViewModel()),
-        ChangeNotifierProvider(create: (_) => MyLaporanViewModel()),
         ChangeNotifierProvider(create: (_) => DashboardViewModel()),
-        ChangeNotifierProvider(create: (_) => AllLaporanViewModel()),
         ChangeNotifierProvider(create: (_) => AddLaporanViewModel()),
         ChangeNotifierProvider(create: (_) => DetailLaporanViewModel()),
       ],

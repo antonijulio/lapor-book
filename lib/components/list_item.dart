@@ -1,12 +1,11 @@
 import 'package:intl/intl.dart';
-import 'package:lapor_book/routes/routes_navigation.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-
-import 'package:lapor_book/view/all_laporan/view_model/all_laporan_view_model.dart';
+import 'package:provider/provider.dart';
 
 import 'package:lapor_book/model/akun.dart';
 import 'package:lapor_book/model/laporan.dart';
+import 'package:lapor_book/routes/routes_navigation.dart';
+import 'package:lapor_book/helper/laporan_view_model.dart';
 
 class ListItem extends StatelessWidget {
   final Laporan laporan;
@@ -22,7 +21,7 @@ class ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AllLaporanViewModel>(
+    return Consumer<LaporanViewModel>(
       builder: (context, controller, child) {
         return GestureDetector(
           onTap: () => Navigator.pushNamed(
@@ -33,7 +32,7 @@ class ListItem extends StatelessWidget {
               'akun': akun,
             },
           ),
-          onLongPress: () => controller.openDialog(
+          onLongPress: () => controller.openDeleteDialog(
             isLaporanku,
             context,
             laporan,

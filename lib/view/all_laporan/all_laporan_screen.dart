@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lapor_book/components/list_item.dart';
-import 'package:lapor_book/model/akun.dart';
-import 'package:lapor_book/view/all_laporan/view_model/all_laporan_view_model.dart';
 import 'package:provider/provider.dart';
+
+import 'package:lapor_book/model/akun.dart';
+import 'package:lapor_book/components/list_item.dart';
+import 'package:lapor_book/helper/laporan_view_model.dart';
 
 class AllLaporanScreen extends StatelessWidget {
   final Akun? akun;
@@ -10,12 +11,12 @@ class AllLaporanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<AllLaporanViewModel>(
+    Provider.of<LaporanViewModel>(
       context,
       listen: false,
-    ).getTransaksi(context);
+    ).getAllTransaksi(context);
 
-    return Consumer<AllLaporanViewModel>(
+    return Consumer<LaporanViewModel>(
       builder: (context, controller, child) {
         return SafeArea(
           child: GridView.builder(
@@ -26,9 +27,9 @@ class AllLaporanScreen extends StatelessWidget {
               mainAxisSpacing: 8,
               childAspectRatio: 1 / 1.5,
             ),
-            itemCount: controller.listLaporan.length,
+            itemCount: controller.listAllLaporan.length,
             itemBuilder: (context, index) {
-              var laporan = controller.listLaporan[index];
+              var laporan = controller.listAllLaporan[index];
 
               return ListItem(
                 laporan: laporan,
