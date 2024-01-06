@@ -30,6 +30,7 @@ class ListItem extends StatelessWidget {
             arguments: {
               'laporan': laporan,
               'akun': akun,
+              'isLaporanku': isLaporanku,
             },
           ),
           onLongPress: () => controller.openDeleteDialog(
@@ -117,12 +118,23 @@ class ListItem extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(horizontal: 8),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: Colors.grey.shade200,
+                            color: () {
+                              if (laporan.status == 'Posted') {
+                                return Colors.yellow.shade200;
+                              } else if (laporan.status == 'Process') {
+                                return Colors.green.shade200;
+                              } else {
+                                return Colors.blue.shade200;
+                              }
+                            }(),
                           ),
                           alignment: Alignment.center,
                           child: Text(
                             laporan.status,
                             overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

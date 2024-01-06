@@ -192,7 +192,10 @@ class AddLaporanViewModel extends ChangeNotifier {
       String judul = _judulController.text;
       String deskripsi = _deskripsiController.text;
 
-      bool isValid = valueValidator(judul, deskripsi);
+      bool isValid = valueValidator(
+        judul,
+        deskripsi,
+      );
 
       if (isValid && _selectedInstansi?.isNotEmpty == true && file != null) {
         await laporanCollection.doc(id).set({

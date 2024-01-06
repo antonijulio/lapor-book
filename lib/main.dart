@@ -1,12 +1,12 @@
 /// package
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:lapor_book/helper/laporan_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:lapor_book/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 /// controller/providers
+import 'package:lapor_book/helper/laporan_view_model.dart';
 import 'package:lapor_book/view/login/view_model/login_view_model.dart';
 import 'package:lapor_book/view/splash/view_model/splash_view_model.dart';
 import 'package:lapor_book/view/profile/view_model/profile_view_model.dart';

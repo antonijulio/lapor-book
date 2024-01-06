@@ -19,7 +19,7 @@ class SplashViewModel extends ChangeNotifier {
       } else {
         Navigator.pushReplacementNamed(
           context,
-          RoutesNavigation.register,
+          RoutesNavigation.login,
         );
       }
     });
