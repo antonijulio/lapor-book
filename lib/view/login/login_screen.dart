@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lapor_book/routes/routes_navigation.dart';
 import 'package:provider/provider.dart';
 
 import 'package:lapor_book/components/styles.dart';
@@ -80,6 +81,14 @@ class LoginScreen extends StatelessWidget {
                           controller.login(context: context);
                         }
                       },
+                    ),
+
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        RoutesNavigation.register,
+                      ),
+                      child: const Text('Register'),
                     ),
                   ],
                 ),

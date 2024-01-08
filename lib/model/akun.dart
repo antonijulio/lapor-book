@@ -7,6 +7,8 @@ class Akun {
   final String email;
   final String role;
 
+  final List<dynamic>? likes;
+
   Akun({
     required this.uid,
     required this.docId,
@@ -14,5 +16,6 @@ class Akun {
     required this.noHP,
     required this.email,
     required this.role,
+    this.likes,
   });
 }

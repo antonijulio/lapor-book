@@ -45,6 +45,7 @@ class LaporanViewModel extends ChangeNotifier {
             tanggal: documents['tanggal'].toDate(),
             maps: documents.data()['maps'],
             komentar: listKomentar,
+            likes: documents.data()['likes'],
           ),
         );
       }
@@ -92,6 +93,7 @@ class LaporanViewModel extends ChangeNotifier {
             tanggal: documents['tanggal'].toDate(),
             maps: documents.data()['maps'],
             komentar: listKomentar,
+            likes: documents.data()['likes'],
           ),
         );
       }

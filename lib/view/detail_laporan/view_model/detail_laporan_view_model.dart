@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lapor_book/components/status_dialog.dart';
+import 'package:lapor_book/model/akun.dart';
 import 'package:lapor_book/model/laporan.dart';
 import 'package:lapor_book/routes/routes_navigation.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -52,5 +53,36 @@ class DetailLaporanViewModel extends ChangeNotifier {
         );
       },
     );
+  }
+
+  Future<void> like(BuildContext context, Akun akun, Laporan laporan) async {
+    CollectionReference laporanCollection = firestore.collection('laporan');
+    CollectionReference akunCollection = firestore.collection('akun');
+
+    try {
+      await laporanCollection.doc(laporan.docId).update({
+        'likes': FieldValue.arrayUnion([akun.nama]),
+      });
+      await akunCollection.doc(akun.docId).update({
+        'likes': FieldValue.arrayUnion([laporan.docId]),
+      });
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Berhasil Menyukai Laporan'),
+          ),
+        );
+      }
+    } on FirebaseException catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Gagal Menyukai Laporan'),
+          ),
+        );
+      }
+      throw Exception('GAGAL MENYUKAI LAPORAN ${e.message}');
+    }
   }
 }

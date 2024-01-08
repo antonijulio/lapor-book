@@ -60,15 +60,30 @@ class ListItem extends StatelessWidget {
                 //* GAMBAR LAPORAN
                 if (laporan.gambar?.isNotEmpty == true) ...[
                   Expanded(
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(12),
-                      ),
-                      child: Image.network(
-                        laporan.gambar ?? '-',
-                        width: MediaQuery.of(context).size.width,
-                        fit: BoxFit.cover,
-                      ),
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12),
+                          ),
+                          child: Image.network(
+                            laporan.gambar ?? '-',
+                            width: MediaQuery.of(context).size.width,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Positioned(
+                          right: 12,
+                          bottom: 12,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.amber,
+                            child: Text(
+                              laporan.likes?.length.toString() ?? '0',
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ] else ...[

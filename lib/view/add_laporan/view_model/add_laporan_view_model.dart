@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lapor_book/model/akun.dart';
+import 'package:lapor_book/model/laporan.dart';
 import 'package:lapor_book/routes/routes_navigation.dart';
 
 class AddLaporanViewModel extends ChangeNotifier {

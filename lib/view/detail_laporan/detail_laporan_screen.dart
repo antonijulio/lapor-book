@@ -16,7 +16,6 @@ class DetailLaporanScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     Laporan laporan = args['laporan'];
     Akun akun = args['akun'];
-    bool isLaporanku = args['isLaporanku'];
 
     return Scaffold(
       appBar: AppBar(
@@ -82,6 +81,14 @@ class DetailLaporanScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 20),
+                          TextButton(
+                            onPressed: () => controller.like(
+                              context,
+                              akun,
+                              laporan,
+                            ),
+                            child: const Text('Sukai'),
+                          ),
                           ListTile(
                             leading: const Icon(Icons.person),
                             title: const Center(child: Text('Nama Pelapor')),
@@ -119,25 +126,6 @@ class DetailLaporanScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 50),
                           if (akun.role == 'admin')
-                            SizedBox(
-                              width: 250,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  controller.setStatus = laporan.status;
-
-                                  controller.statusDialog(laporan, context);
-                                },
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  backgroundColor: primaryColor,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                child: const Text('Ubah Status'),
-                              ),
-                            ),
-                          if (isLaporanku == false)
                             SizedBox(
                               width: 250,
                               child: ElevatedButton(
