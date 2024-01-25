@@ -15,30 +15,40 @@ class AllLaporanScreen extends StatelessWidget {
       context,
       listen: false,
     ).getAllTransaksi(context);
+    Provider.of<LaporanViewModel>(
+      context,
+      listen: false,
+    ).getConnectivity();
 
     return Consumer<LaporanViewModel>(
       builder: (context, controller, child) {
-        return SafeArea(
-          child: GridView.builder(
-            padding: const EdgeInsets.all(16),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              childAspectRatio: 1 / 1.5,
-            ),
-            itemCount: controller.listAllLaporan.length,
-            itemBuilder: (context, index) {
-              var laporan = controller.listAllLaporan[index];
+        if (controller.isOffline == true) {
+          return const Center(
+            child: Text('Anda Sedang Ofline'),
+          );
+        } else {
+          return SafeArea(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(16),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 1 / 1.5,
+              ),
+              itemCount: controller.listAllLaporan.length,
+              itemBuilder: (context, index) {
+                var laporan = controller.listAllLaporan[index];
 
-              return ListItem(
-                laporan: laporan,
-                akun: akun,
-                isLaporanku: false,
-              );
-            },
-          ),
-        );
+                return ListItem(
+                  laporan: laporan,
+                  akun: akun,
+                  isLaporanku: false,
+                );
+              },
+            ),
+          );
+        }
       },
     );
   }

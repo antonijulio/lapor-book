@@ -13,7 +13,7 @@ class InputWidget extends StatelessWidget {
   const InputWidget({
     Key? key,
     required this.hintText,
-    required this.errorText,
+    this.errorText,
     required this.keyboardType,
     required this.controller,
     this.suffixIcon,

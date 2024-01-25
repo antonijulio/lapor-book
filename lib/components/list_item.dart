@@ -58,32 +58,17 @@ class ListItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 //* GAMBAR LAPORAN
-                if (laporan.gambar?.isNotEmpty == true) ...[
+                if (laporan.gambar != null) ...[
                   Expanded(
-                    child: Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(12),
-                          ),
-                          child: Image.network(
-                            laporan.gambar ?? '-',
-                            width: MediaQuery.of(context).size.width,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Positioned(
-                          right: 12,
-                          bottom: 12,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.amber,
-                            child: Text(
-                              laporan.likes?.length.toString() ?? '0',
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(12),
+                      ),
+                      child: Image.network(
+                        laporan.gambar ?? '-',
+                        width: MediaQuery.of(context).size.width,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ] else ...[

@@ -81,14 +81,14 @@ class DetailLaporanScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 20),
-                          TextButton(
-                            onPressed: () => controller.like(
-                              context,
-                              akun,
-                              laporan,
-                            ),
-                            child: const Text('Sukai'),
-                          ),
+                          // TextButton(
+                          //   onPressed: () => controller.like(
+                          //     context,
+                          //     akun,
+                          //     laporan,
+                          //   ),
+                          //   child: const Text('Sukai'),
+                          // ),
                           ListTile(
                             leading: const Icon(Icons.person),
                             title: const Center(child: Text('Nama Pelapor')),
@@ -144,6 +144,53 @@ class DetailLaporanScreen extends StatelessWidget {
                                 child: const Text('Ubah Status'),
                               ),
                             ),
+                          SizedBox(
+                            width: 250,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                controller.openDialog(context, akun, laporan);
+                              },
+                              style: TextButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                backgroundColor: primaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text('Tambah Komentar'),
+                            ),
+                          ),
+                          if (laporan.komentar != null)
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: laporan.komentar?.length,
+                              itemBuilder: (context, index) {
+                                var komentar = laporan.komentar?[index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: Material(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: Colors.grey.shade200,
+                                    child: ListTile(
+                                      leading: const CircleAvatar(
+                                        child: Icon(Icons.person),
+                                      ),
+                                      title: Text(komentar?.nama ?? '-'),
+                                      subtitle: Text(komentar?.isi ?? '-'),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          // Container(
+                          //   width: double.infinity,
+                          //   padding: const EdgeInsets.all(16),
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.grey.shade300,
+                          //     borderRadius: BorderRadius.circular(12),
+                          //   ),
+                          //   child:
+                          // ),
                         ],
                       ),
                     ),

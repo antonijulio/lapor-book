@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lapor_book/model/laporan.dart';
 import 'package:lapor_book/routes/routes_navigation.dart';
 
@@ -15,6 +19,35 @@ class LaporanViewModel extends ChangeNotifier {
 
   List<Laporan> listAllLaporan = [];
   List<Laporan> listMyLaporan = [];
+
+  Connectivity connectivity = Connectivity();
+  bool isOffline = true;
+  StreamSubscription<ConnectivityResult>? connectionSubscription;
+
+  @override
+  void dispose() {
+    connectionSubscription?.cancel();
+    super.dispose();
+  }
+
+  Future<void> getConnectivity() async {
+    try {
+      ConnectivityResult result = await connectivity.checkConnectivity();
+      updateConnectionStatus(result);
+    } on PlatformException catch (e) {
+      throw Exception(e.message);
+    }
+  }
+
+  Future<void> updateConnectionStatus(ConnectivityResult result) async {
+    if (result == ConnectivityResult.none) {
+      isOffline = true;
+      notifyListeners();
+    } else {
+      isOffline = false;
+      notifyListeners();
+    }
+  }
 
   Future<void> getAllTransaksi(BuildContext context) async {
     try {
@@ -58,7 +91,7 @@ class LaporanViewModel extends ChangeNotifier {
           ),
         );
       }
-      throw Exception('GAGAL MENDAPATKAN LAPORAN');
+      throw Exception('GAGAL MENDAPATKAN LAPORAN $e');
     }
   }
 

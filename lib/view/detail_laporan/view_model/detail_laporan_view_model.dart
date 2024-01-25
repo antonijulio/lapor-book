@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lapor_book/components/input_widget.dart';
 import 'package:lapor_book/components/status_dialog.dart';
 import 'package:lapor_book/model/akun.dart';
 import 'package:lapor_book/model/laporan.dart';
@@ -8,6 +9,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class DetailLaporanViewModel extends ChangeNotifier {
   bool isLoading = false;
+
+  TextEditingController komentarController = TextEditingController();
 
   String? _status;
   String? get getStatus => _status;
@@ -84,5 +87,78 @@ class DetailLaporanViewModel extends ChangeNotifier {
       }
       throw Exception('GAGAL MENYUKAI LAPORAN ${e.message}');
     }
+  }
+
+  openDialog(BuildContext context, Akun akun, Laporan laporan) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Komentari ${laporan.judul}?'),
+          content: InputWidget(
+            hintText: 'Tulis Komentarmu disini',
+            keyboardType: TextInputType.multiline,
+            maxLines: 4,
+            controller: komentarController,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Batal'),
+            ),
+            TextButton(
+              onPressed: () {
+                komentar(context, akun, laporan);
+              },
+              child: const Text('Submit'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> komentar(
+      BuildContext context, Akun akun, Laporan laporan) async {
+    CollectionReference laporanCollection = firestore.collection('laporan');
+    var data = {
+      'nama': akun.nama,
+      'isi': komentarController.text,
+    };
+
+    try {
+      await laporanCollection.doc(laporan.docId).update({
+        'komentar': FieldValue.arrayUnion([data]),
+      });
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Kometar Ditambahkan'),
+          ),
+        );
+        Navigator.pop(context);
+      }
+      clear();
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Gagal Mengomentari Laporan'),
+          ),
+        );
+        Navigator.pop(context);
+      }
+
+      clear();
+      throw Exception('GAGAL MENGOMENTARI LAPORAN $e');
+    }
+  }
+
+  void clear() {
+    komentarController.clear();
+    komentarController.text = '';
   }
 }
